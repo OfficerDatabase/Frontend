@@ -1,95 +1,110 @@
 <template>
-  <v-layout column justify-center align-center>
-    <v-flex xs12 sm8 md6>
-      <div class="text-center">
-        <logo />
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>
-            Vuetify is a progressive Material Design component framework for
-            Vue.js. It was designed to empower developers to create amazing
-            applications.
-          </p>
-          <p>
-            For more information on Vuetify, check out the
-            <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              documentation </a
-            >.
-          </p>
-          <p>
-            If you have questions, please join the official
-            <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-            >
-              discord </a
-            >.
-          </p>
-          <p>
-            Find a bug? Report it on the github
-            <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-            >
-              issue board </a
-            >.
-          </p>
-          <p>
-            Thank you for developing with Vuetify and I look forward to bringing
-            more exciting features in the future.
-          </p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3" />
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
+  <div>
+    <v-row class="d-flex align-center main-screen">
+      <v-col cols="12" xs="12" sm="6" md="6" lg="5" xl="5">
+        <h1>
+          <span class="primary--text">Officer</span>
+          <span class="secondary--text">DB</span>
+        </h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu
+          neque eget ligula congue mattis. Pellentesque lacinia lorem luctus,
+          scelerisque mi sed, sagittis nunc. Etiam lacus diam, consectetur et
+          tincidunt eu, vestibulum ac urna. Sed sit amet orci consequat,
+          pharetra ante et, vehicula erat. Nam maximus, sapien at malesuada
+          rutrum, dolor ex elementum nunc, sollicitudin ornare nisl arcu vitae
+          quam. Pellentesque bibendum risus vel dolor pellentesque, et rutrum
+          est vulputate. Proin ac arcu a ex sodales ultrices id a nisl. Cras
+          eleifend augue vel felis ultricies, id lobortis lectus tincidunt. Nunc
+          vitae semper risus.
+        </p>
+      </v-col>
+      <v-col
+        cols="12"
+        xs="12"
+        sm="6"
+        md="6"
+        lg="3"
+        xl="3"
+        offset-lg="3"
+        offset-xl="3"
+        class="align-self-start"
+      >
+        <v-list color="bg-opaque" outlined>
+          <v-subheader>Latest Reports</v-subheader>
+          <v-divider />
+          <v-list-item
+            v-for="(report, i) in latestReports"
+            :key="i"
+            class="white--text text-decoration-none"
+            color="background"
+            :to="`/reports/${latestReports._id}`"
           >
-            Nuxt Documentation
-          </a>
-          <br />
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" nuxt to="/inspire">
-            Continue
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
-  </v-layout>
+            <v-list-item-content class="d-inline">
+              <span class="yellow--text">{{ report.by }} </span>
+              <span class="grey--text text--lighten-1">reported </span>
+              <span class="blue--text">{{ report.to }} </span>
+              <span class="grey--text text--lighten-1">last week.</span>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-col>
+    </v-row>
+    <v-row class="bg-opaque mx-1 py-10">
+      <v-col
+        v-for="(stat, i) in stats"
+        :key="i"
+        cols="12"
+        xs="12"
+        sm="4"
+        md="4"
+        lg="4"
+        xl="4"
+        class="text-center"
+      >
+        <h2>{{ stat.name }}</h2>
+        <h1>{{ stat.value }}</h1>
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
-
 export default {
-  components: {
-    Logo,
-    VuetifyLogo,
+  components: {},
+  data() {
+    return {
+      stats: [
+        {
+          name: 'Reports',
+          value: 32,
+        },
+        {
+          name: 'Officer',
+          value: 84,
+        },
+        {
+          name: 'Other',
+          value: 970,
+        },
+      ],
+      latestReports: [
+        {
+          by: 'Anon',
+          to: 'Officer #1',
+        },
+        {
+          by: 'Anon 2',
+          to: 'Officer #31',
+        },
+      ],
+    }
   },
 }
 </script>
+
+<style>
+.main-screen {
+  height: 100vh;
+}
+</style>
