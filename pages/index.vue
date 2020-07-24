@@ -30,27 +30,44 @@
         offset-xl="3"
         class="align-self-start"
       >
-        <v-list color="bg-opaque" outlined>
-          <v-subheader>Latest Reports</v-subheader>
+        <v-list color="bg-secondary" outlined>
+          <v-subheader>Latest Incidents</v-subheader>
           <v-divider />
-          <v-list-item
-            v-for="(report, i) in latestReports"
-            :key="i"
-            class="white--text text-decoration-none"
-            color="background"
-            :to="`/reports/${latestReports._id}`"
-          >
-            <v-list-item-content class="d-inline">
-              <span class="yellow--text">{{ report.by }} </span>
-              <span class="grey--text text--lighten-1">reported </span>
-              <span class="blue--text">{{ report.to }} </span>
-              <span class="grey--text text--lighten-1">last week.</span>
+          <div v-if="latestIncidents.length > 0">
+            <v-list-item
+              v-for="(incident, i) in latestIncidents"
+              :key="i"
+              class="white--text text-decoration-none"
+              color="bg-primary"
+              :to="`/incidents/${incident._id}`"
+            >
+              <v-list-item-content class="d-inline">
+                <span class="yellow--text">
+                  {{ incident.created_by /*.name*/ }}
+                </span>
+                <span class="grey--text text--lighten-1"> reported </span>
+                <span class="blue--text">{{ incident.officer.name }} </span>
+                <Timeago
+                  :datetime="incident.created_at"
+                  class="grey--text text--lighten-1"
+                />
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item-action>
+              <v-list-item-action-text>
+                <nuxt-link to="/incidents">Read More!</nuxt-link>
+              </v-list-item-action-text>
+            </v-list-item-action>
+          </div>
+          <v-list-item v-else disabled>
+            <v-list-item-content>
+              No incidents found... Come back later!
             </v-list-item-content>
           </v-list-item>
         </v-list>
       </v-col>
     </v-row>
-    <v-row class="bg-opaque mx-1 py-10">
+    <v-row class="bg-secondary mx-1 py-10 mb-10">
       <v-col
         v-for="(stat, i) in stats"
         :key="i"
@@ -62,7 +79,7 @@
         xl="4"
         class="text-center"
       >
-        <h2>{{ stat.name }}</h2>
+        <h2 class="capitalize">{{ stat.name }}</h2>
         <h1>{{ stat.value }}</h1>
       </v-col>
     </v-row>
@@ -71,33 +88,16 @@
 
 <script>
 export default {
-  components: {},
+  async asyncData({ $axios }) {
+    return {
+      latestIncidents: (await $axios.$get('/api/incidents/latest')).data,
+      stats: (await $axios.$get('/api/stats')).data,
+    }
+  },
   data() {
     return {
-      stats: [
-        {
-          name: 'Reports',
-          value: 32,
-        },
-        {
-          name: 'Officer',
-          value: 84,
-        },
-        {
-          name: 'Other',
-          value: 970,
-        },
-      ],
-      latestReports: [
-        {
-          by: 'Anon',
-          to: 'Officer #1',
-        },
-        {
-          by: 'Anon 2',
-          to: 'Officer #31',
-        },
-      ],
+      stats: [],
+      latestIncidents: [],
     }
   },
 }
@@ -105,6 +105,6 @@ export default {
 
 <style>
 .main-screen {
-  height: 100vh;
+  min-height: 100vh;
 }
 </style>

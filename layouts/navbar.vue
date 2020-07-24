@@ -2,12 +2,20 @@
   <div>
     <v-navigation-drawer
       v-model="opened"
-      color="background"
+      color="bg-primary"
       fixed
       temporary
       app
     >
       <v-list>
+        <v-list-item>
+          <v-toolbar-title
+            class="logo-title d-flex justify-center font-weight-bold"
+          >
+            <span>Officer</span>
+            <span>Database</span>
+          </v-toolbar-title>
+        </v-list-item>
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
@@ -15,34 +23,37 @@
           router
           exact
         >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title v-text="item.title" />
           </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar color="background" fixed elevate-on-scroll app>
-      <v-app-bar-nav-icon class="d-flex d-sm-none" @click="toggleDrawer" />
-
+    <v-app-bar color="bg-primary" fixed elevate-on-scroll app>
       <v-toolbar-title>
-        <nuxt-link to="/" class="text-decoration-none logo-title">
+        <nuxt-link
+          to="/"
+          class="text-decoration-none logo-title d-flex justify-center"
+        >
           <span>Officer</span>
           <span>Database</span>
         </nuxt-link>
       </v-toolbar-title>
 
-      <v-spacer></v-spacer>
+      <v-spacer />
 
-      <v-btn to="/reports" text>
-        Reports
-      </v-btn>
+      <nuxt-link
+        v-for="(item, i) in items"
+        :key="i"
+        active-class="active"
+        :to="item.to"
+        class="d-none d-sm-flex nav-item"
+        exact
+      >
+        {{ item.title }}
+      </nuxt-link>
 
-      <v-btn to="/officers" text>
-        Officers
-      </v-btn>
+      <v-app-bar-nav-icon class="d-flex d-sm-none" @click="toggleDrawer" />
     </v-app-bar>
   </div>
 </template>
@@ -55,14 +66,12 @@ export default {
       opened: false,
       items: [
         {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/',
+          title: 'Incidents',
+          to: '/incidents',
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire',
+          title: 'Officers',
+          to: '/officers',
         },
       ],
     }
@@ -77,7 +86,9 @@ export default {
 
 <style lang="scss">
 .logo-title {
-  transition: color 200ms ease-in-out;
+  * {
+    transition: color 200ms ease-in-out;
+  }
   :first-child {
     color: var(--v-primary-base);
   }
@@ -85,13 +96,32 @@ export default {
     color: var(--v-secondary-base);
   }
 
-  :hover {
+  &:hover {
     :last-child {
       color: var(--v-primary-base);
     }
+
     :first-child {
       color: var(--v-secondary-base);
     }
   }
+}
+
+.nav-item {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1.2rem;
+  text-decoration: none;
+  color: white;
+  transition: color 200ms ease-in-out;
+
+  &:hover {
+    color: var(--v-secondary-base);
+  }
+}
+.active {
+  color: var(--v-secondary-base);
 }
 </style>

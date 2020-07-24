@@ -37,7 +37,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [],
+  plugins: ['@/plugins/timeago.js'],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -64,7 +64,12 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    proxy: true,
+  },
+  proxy: {
+    '/api/': 'http://localhost:8080',
+  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
@@ -85,8 +90,9 @@ export default {
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
-          background: '#0E0B16',
-          'bg-opaque': '#0b0911',
+          'bg-primary': '#000d17',
+          'bg-secondary': '#000a11',
+          'bg-accent': '#00080e',
         },
       },
     },
