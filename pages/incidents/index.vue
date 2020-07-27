@@ -1,5 +1,16 @@
 <template>
   <v-row>
+    <v-col cols="12">
+      <v-btn
+        id="addIncident"
+        class="bg-secondary"
+        to="/incidents/create"
+        text
+        outlined
+      >
+        Make a Report
+      </v-btn>
+    </v-col>
     <v-col
       v-for="(incident, i) in incidents"
       :key="i"
@@ -14,6 +25,7 @@
         height="100%"
         color="bg-accent"
         :to="`/incidents/${incident._id}`"
+        outlined
       >
         <v-card-title
           :title="incident.title"
@@ -31,6 +43,10 @@
         </v-card-text>
       </v-card>
     </v-col>
+    <v-col cols="12">
+      <v-pagination v-model="page" :length="15" :total-visible="8" />
+    </v-col>
+    <v-tour name="myTour" :steps="tour" :callbacks="tourCallbacks" />
   </v-row>
 </template>
 
@@ -42,11 +58,58 @@ export default {
     }
   },
   data() {
-    return { incidents: [] }
+    return {
+      incidents: [],
+      page: 1,
+      tourCallbacks: {
+        onFinish: this.gotTop,
+        onSkip: this.gotTop,
+      },
+      tour: [
+        {
+          target: '.v-card',
+          header: {
+            title: 'Incidents',
+          },
+          content:
+            'This is a user created report to an officer. Click the card to see more details about the report.',
+          params: {
+            placement: 'bottom',
+            enableScrolling: false,
+          },
+        },
+        {
+          target: '#addIncident',
+          header: {
+            title: 'Want to make one?',
+          },
+          content:
+            'If you want to report an officer you can click this button to fill out the incident form.',
+          params: {
+            placement: 'bottom',
+            enableScrolling: false,
+          },
+        },
+        {
+          target: '.v-pagination',
+          header: {
+            title: 'More...',
+          },
+          content:
+            'You can keep looking for the other incidents in the other pages.',
+          params: {
+            placement: 'top',
+          },
+        },
+      ],
+    }
+  },
+  mounted() {
+    this.$tours.myTour.start()
   },
   methods: {
     trimContent(text = '') {
-      const maxLength = 10
+      const maxLength = 200
       let newContent = text.substring(0, maxLength)
       if (text.length > maxLength) {
         newContent += '...'
@@ -60,6 +123,9 @@ export default {
         newContent += '...'
       }
       return newContent
+    },
+    gotTop() {
+      this.$vuetify.goTo(0)
     },
   },
 }

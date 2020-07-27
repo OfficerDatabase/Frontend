@@ -16,7 +16,7 @@ export default {
    ** See https://nuxtjs.org/api/configuration-head
    */
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
+    titleTemplate: '%s - OfficerDB',
     title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
@@ -37,7 +37,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['@/plugins/timeago.js'],
+  plugins: ['@/plugins/timeago.js', '@/plugins/vue-tour.js'],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -93,6 +93,18 @@ export default {
           'bg-primary': '#000d17',
           'bg-secondary': '#000a11',
           'bg-accent': '#00080e',
+        },
+        light: {
+          primary: '#4299E1',
+          accent: '#FFC107',
+          secondary: '#E53E3E',
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3,
+          'bg-primary': '#ffffff',
+          'bg-secondary': '#ffeeee',
+          'bg-accent': '#fff1f1',
         },
       },
     },

@@ -3,23 +3,35 @@
     <v-card color="bg-accent" width="100%" flat tile>
       <v-card-text>
         <v-row class="text-center">
-          <v-col cols="12" xs="12" sm="6">
+          <v-col cols="12" xs="12" sm="4">
             <h1>Officer Database</h1>
-            <p>Where bad conduct gets reported</p>
+            <span>Where bad conduct gets reported</span>
           </v-col>
-          <v-col cols="12" xs="12" sm="6" class="links">
-            <nuxt-link to="/toc" class="grey--text text--lighten-1">
-              Terms & Condition</nuxt-link
+          <v-col cols="12" xs="12" sm="4">
+            <v-btn
+              href="https://twitter.com/OfficerDatabase"
+              target="_blank"
+              icon
             >
-            <nuxt-link to="/status" class="grey--text text--lighten-1">
-              Status
-            </nuxt-link>
+              <v-icon>mdi-twitter</v-icon>
+            </v-btn>
+            <v-btn
+              href="https://www.instagram.com/officerdatabase/"
+              target="_blank"
+              icon
+            >
+              <v-icon>mdi-instagram</v-icon>
+            </v-btn>
+          </v-col>
+          <v-col cols="12" xs="12" sm="4" class="links">
+            <div>
+              <nuxt-link to="/toc">
+                Terms & Condition
+              </nuxt-link>
+              <a href="status.officerdb.com">Status</a>
+            </div>
           </v-col>
         </v-row>
-      </v-card-text>
-      <v-divider />
-      <v-card-text class="text-center">
-        &copy; {{ new Date().getFullYear() }} — OfficerDB
       </v-card-text>
     </v-card>
   </v-footer>

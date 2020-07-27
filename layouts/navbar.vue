@@ -30,13 +30,13 @@
       </v-list>
     </v-navigation-drawer>
     <v-app-bar color="bg-primary" fixed elevate-on-scroll app>
-      <v-toolbar-title>
+      <v-toolbar-title @click="animate = true" @animationend="animate = false">
         <nuxt-link
           to="/"
           class="text-decoration-none logo-title d-flex justify-center"
         >
-          <span>Officer</span>
-          <span>Database</span>
+          <span :class="{ 'title-red': animate }">Officer</span>
+          <span :class="{ 'title-blue': animate }">Database</span>
         </nuxt-link>
       </v-toolbar-title>
 
@@ -45,9 +45,10 @@
       <nuxt-link
         v-for="(item, i) in items"
         :key="i"
-        active-class="active"
         :to="item.to"
+        :i="item.title"
         class="d-none d-sm-flex nav-item"
+        active-class="active"
         exact
       >
         {{ item.title }}
@@ -63,6 +64,7 @@ export default {
   name: 'Navbar',
   data() {
     return {
+      animate: false,
       opened: false,
       items: [
         {
@@ -123,5 +125,35 @@ export default {
 }
 .active {
   color: var(--v-secondary-base);
+}
+
+.title-red {
+  color: var(--v-primary-base);
+  animation: red-to-blue 250ms;
+  animation-iteration-count: 5;
+}
+
+.title-blue {
+  color: var(--v-secondary-base);
+  animation: blue-to-red 250ms;
+  animation-iteration-count: 5;
+}
+
+@keyframes red-to-blue {
+  from {
+    color: var(--v-primary-base);
+  }
+  to {
+    color: var(--v-secondary-base);
+  }
+}
+
+@keyframes blue-to-red {
+  from {
+    color: var(--v-secondary-base);
+  }
+  to {
+    color: var(--v-primary-base);
+  }
 }
 </style>
