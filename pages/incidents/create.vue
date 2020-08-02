@@ -147,5 +147,14 @@ export default {
       },
     }
   },
+  methods: {
+    async submit() {
+      try {
+        await this.$axios.$post('/api/incidents')
+      } catch (e) {
+        console.error(e)
+      }
+    },
+  },
 }
 </script>
