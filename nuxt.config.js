@@ -37,7 +37,12 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['@/plugins/timeago.js', '@/plugins/vue-tour.js'],
+  plugins: [
+    '@/plugins/timeago.js',
+    '@/plugins/vue-tour.js',
+    '@/plugins/axios.js',
+    '@/plugins/toasted.client.js',
+  ],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components

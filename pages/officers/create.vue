@@ -82,19 +82,22 @@ export default {
   methods: {
     async submit() {
       try {
+        this.$toasted.show('Saving... please wait!')
+
         const formData = new FormData()
         Object.keys(this.officer).forEach((key) => {
           formData.append(key, this.officer[key])
         })
 
-        await this.$axios.$post('/api/officers', formData, {
+        const { _id } = await this.$axios.$post('/api/officers', formData, {
           headers: {
             'content-type': 'multipart/form-data',
           },
         })
-      } catch (e) {
-        console.error(e)
-      }
+
+        this.$toasted.success('Officer Created!')
+        await this.$router.push({ path: `/officers/${_id}` })
+      } catch {}
     },
   },
 }
