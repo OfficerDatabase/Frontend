@@ -94,12 +94,16 @@
         />
       </v-col>
       <v-col cols="12">
-        <v-text-field
+        <v-autocomplete
           v-model="incidentData.officer"
+          :items="officers"
+          :search-input.sync="searchOfficer"
           label="Officer"
           background-color="bg-accent"
           hide-details
           outlined
+          return-object
+          auto-select-first
           :disabled="!submitable"
         />
       </v-col>
@@ -151,6 +155,9 @@ export default {
   },
   data() {
     return {
+      officerList: [],
+      loading: false,
+      searchOfficer: null,
       incident: {
         officer: '',
         content: '',
@@ -190,16 +197,46 @@ export default {
   },
   computed: {
     incidentData() {
-      return this.submitable ? this.incident : this.data
+      const data = this.submitable ? this.incident : this.data
+      data.officer = `${data.officer.fullname} - ${data.officer.badge}`
+      return data
+    },
+    officers() {
+      if (!this.submitable) {
+        return [this.incidentData]
+      }
+      return this.officerList.map(
+        (officer) => `${officer.fullname} - ${officer.badge}`
+      )
+    },
+    selectedOfficer() {
+      return this.officers.indexOf(this.incidentData.officer)
+    },
+  },
+  watch: {
+    searchOfficer() {
+      if (!this.submitable || this.officers.length > 0 || this.loading) return
+
+      this.loading = true
+
+      this.$axios
+        .$get('/api/officers/list')
+        .then(({ data }) => {
+          this.officerList = data
+        })
+        .finally(() => (this.loading = false))
     },
   },
   methods: {
     async submit() {
       try {
         this.$toasted.show('Creating report... please wait!')
-        const { _id } = await this.$axios.$post('/api/incidents', this.incident)
+        const { _id } = await this.$axios.$post('/api/incidents', {
+          ...this.incident,
+          officer: this.selectedOfficer,
+        })
         await this.$router.push({ path: `/incidents/${_id}` })
-        this.$toasted.show('Report created!')
+        this.$toasted.success('Report created!')
       } catch {}
     },
   },
