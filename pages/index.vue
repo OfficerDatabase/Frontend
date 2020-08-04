@@ -43,10 +43,10 @@
             >
               <v-list-item-content class="d-inline">
                 <span class="yellow--text">
-                  {{ incident.created_by /*.name*/ }}
+                  {{ incident.created_by.name }}
                 </span>
                 <span class="grey--text text--lighten-1"> reported </span>
-                <span class="blue--text">{{ incident.officer.name }} </span>
+                <span class="blue--text">{{ incident.officer.fullname }} </span>
                 <Timeago
                   :datetime="incident.created_at"
                   class="grey--text text--lighten-1"
