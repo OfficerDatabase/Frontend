@@ -40,7 +40,7 @@ export default {
   plugins: [
     '@/plugins/timeago.js',
     '@/plugins/vue-tour.js',
-    '@/plugins/axios.js',
+    '@/plugins/axios.client.js',
     '@/plugins/toasted.client.js',
   ],
   /*
@@ -70,7 +70,9 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    proxy: true,
+    baseURL: 'http://nginx:80',
+    browserBaseURL: '/',
+    proxy: false,
   },
   proxy: {
     '/api/': 'http://localhost:8080',
