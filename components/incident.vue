@@ -198,12 +198,14 @@ export default {
   computed: {
     incidentData() {
       const data = this.submitable ? this.incident : this.data
-      data.officer = `${data.officer.fullname} - ${data.officer.badge}`
+      if (typeof data.officer !== 'string') {
+        data.officer = `${data.officer.fullname} - ${data.officer.badge}`
+      }
       return data
     },
     officers() {
       if (!this.submitable) {
-        return [this.incidentData]
+        return [this.incidentData.officer]
       }
       return this.officerList.map(
         (officer) => `${officer.fullname} - ${officer.badge}`
