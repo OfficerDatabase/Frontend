@@ -67,7 +67,7 @@
         </v-list>
       </v-col>
     </v-row>
-    <v-row class="bg-secondary mx-1 py-10 mb-10">
+    <v-row class="bg-secondary mx-1 mb-10">
       <v-col
         v-for="(stat, i) in stats"
         :key="i"
@@ -79,8 +79,19 @@
         xl="4"
         class="text-center"
       >
-        <h2 class="capitalize">{{ stat.name }}</h2>
-        <h1>{{ stat.value }}</h1>
+        <v-card
+          height="100%"
+          class="py-10"
+          color="transparent"
+          :to="stat.href"
+          flat
+        >
+          <h2 class="capitalize">{{ stat.name }}</h2>
+          <h1>
+            <Timeago v-if="stat.time" :datetime="stat.value" />
+            <span v-else>{{ stat.value }}</span>
+          </h1>
+        </v-card>
       </v-col>
     </v-row>
   </div>
@@ -89,9 +100,18 @@
 <script>
 export default {
   async asyncData({ $axios }) {
+    const stats = (await $axios.$get('/api/stats')).data.map((stat) => {
+      if (typeof stat.value === 'object' && stat.value.created_at) {
+        stat.value = stat.value.created_at
+        stat.time = true
+      }
+
+      return stat
+    })
+
     return {
       latestIncidents: (await $axios.$get('/api/incidents/latest')).data,
-      stats: (await $axios.$get('/api/stats')).data,
+      stats,
     }
   },
   data() {
