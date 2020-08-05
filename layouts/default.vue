@@ -3,6 +3,7 @@
     <Navbar />
     <v-main class="bg-primary">
       <v-container>
+        <v-breadcrumbs :items="path" />
         <nuxt />
       </v-container>
     </v-main>
@@ -15,5 +16,28 @@ import Navbar from './navbar'
 import Footer from './footer'
 export default {
   components: { Footer, Navbar },
+  computed: {
+    path() {
+      const currentPath = this.$route.path.split('/')
+      currentPath.shift()
+      const paths = currentPath.map((path, i, array) => ({
+        text: path,
+        to: i !== 0 ? `/${array[i - 1]}/${path}` : `/${path}`,
+        exact: true,
+      }))
+
+      console.log(currentPath)
+
+      if (currentPath[0] !== '') {
+        paths.unshift({
+          text: 'home',
+          to: '/',
+          exact: true,
+        })
+      }
+
+      return paths
+    },
+  },
 }
 </script>
