@@ -14,6 +14,7 @@
           <div>Incidents: {{ incidentCount }}</div>
           <div>Badge: {{ officer.badge }}</div>
           <div>Location: {{ officer.location }}</div>
+          <v-btn class="mt-5" text outlined block>Report</v-btn>
         </v-card-text>
       </v-card>
     </v-col>

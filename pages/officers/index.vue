@@ -39,6 +39,7 @@
                 <div v-if="officer.incidents.length > 0">
                   <div>Incidents {{ officer.incidents.length }}</div>
                   <div>Last Report {{ officer.latest_incident }}</div>
+                  <v-btn class="mt-5" text outlined block>Report</v-btn>
                 </div>
                 <div v-else>No Incidents</div>
               </v-card-text>
