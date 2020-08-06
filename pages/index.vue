@@ -7,16 +7,14 @@
           <span class="secondary--text">DB</span>
         </h1>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu
-          neque eget ligula congue mattis. Pellentesque lacinia lorem luctus,
-          scelerisque mi sed, sagittis nunc. Etiam lacus diam, consectetur et
-          tincidunt eu, vestibulum ac urna. Sed sit amet orci consequat,
-          pharetra ante et, vehicula erat. Nam maximus, sapien at malesuada
-          rutrum, dolor ex elementum nunc, sollicitudin ornare nisl arcu vitae
-          quam. Pellentesque bibendum risus vel dolor pellentesque, et rutrum
-          est vulputate. Proin ac arcu a ex sodales ultrices id a nisl. Cras
-          eleifend augue vel felis ultricies, id lobortis lectus tincidunt. Nunc
-          vitae semper risus.
+          The Officer database intends to create transparency among citizens and
+          police. The goal is not to shame or belittle our law enforcement, but
+          to have a portal where citizens can look into first-hand experiences.
+          With all too many cases of officers getting away with excessive force,
+          bad attitudes, threatening, and more, we felt that it was our duty to
+          create such a platform. If you, a friend, or a loved one, have had a
+          bad experience with an officer please do not hesitate to add that
+          experience to this site.
         </p>
       </v-col>
       <v-col

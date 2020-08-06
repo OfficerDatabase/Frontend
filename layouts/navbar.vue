@@ -1,34 +1,5 @@
 <template>
   <div>
-    <v-navigation-drawer
-      v-model="opened"
-      color="bg-primary"
-      fixed
-      temporary
-      app
-    >
-      <v-list>
-        <v-list-item>
-          <v-toolbar-title
-            class="logo-title d-flex justify-center font-weight-bold"
-          >
-            <span>Officer</span>
-            <span>Database</span>
-          </v-toolbar-title>
-        </v-list-item>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
     <v-app-bar color="bg-primary" fixed elevate-on-scroll app>
       <v-toolbar-title @click="animate = true" @animationend="animate = false">
         <nuxt-link
@@ -53,6 +24,14 @@
       >
         {{ item.title }}
       </nuxt-link>
+
+      <template v-if="opened" v-slot:extension>
+        <v-tabs>
+          <v-tab v-for="(item, i) in items" :key="i" :to="item.to" exact>
+            {{ item.title }}
+          </v-tab>
+        </v-tabs>
+      </template>
 
       <v-app-bar-nav-icon class="d-flex d-sm-none" @click="toggleDrawer" />
     </v-app-bar>
