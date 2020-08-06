@@ -19,7 +19,15 @@
     </v-col>
     <v-col cols="12" xd="12" sm="8" md="8" lg="8" xl="8">
       <v-card color="bg-accent">
-        <v-subheader>Incidents</v-subheader>
+        <v-subheader class="d-flex justify-space-between">
+          <span>Incidents</span>
+          <v-badge
+            :content="incidentCount"
+            :value="incidentCount"
+            color="primary"
+            inline
+          />
+        </v-subheader>
         <div v-for="(incident, i) in officer.incidents.data" :key="i">
           <v-divider />
           <v-list-item color="bg-secondary" :to="`/incidents/${incident._id}`">
@@ -72,6 +80,7 @@ export default {
           pages: res.pages,
         },
       },
+      incidentCount: res.incidentCount,
       page,
     }
   },
@@ -79,6 +88,7 @@ export default {
     return {
       officer: {},
       page: 1,
+      incidentCount: 0,
     }
   },
   methods: {
