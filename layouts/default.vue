@@ -26,8 +26,6 @@ export default {
         exact: true,
       }))
 
-      console.log(currentPath)
-
       if (currentPath[0] !== '') {
         paths.unshift({
           text: 'home',

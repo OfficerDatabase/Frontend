@@ -11,7 +11,7 @@
           <v-card-title>{{ officer.name }}</v-card-title>
         </v-img>
         <v-card-text>
-          <div>Incidents: {{ officer.incidents.length }}</div>
+          <div>Incidents: {{ officer.incidents.data.length }}</div>
           <div>Badge: {{ officer.badge }}</div>
           <div>Location: {{ officer.location }}</div>
         </v-card-text>
@@ -20,27 +20,37 @@
     <v-col cols="12" xd="12" sm="8" md="8" lg="8" xl="8">
       <v-card color="bg-accent">
         <v-subheader>Incidents</v-subheader>
-        <div v-for="(incident, i) in officer.incidents" :key="i">
+        <div v-for="(incident, i) in officer.incidents.data" :key="i">
           <v-divider />
-          <v-card color="bg-secondary" :to="`/incidents/${incident._id}`" flat>
-            <v-list-item>
+          <v-list-item color="bg-secondary" :to="`/incidents/${incident._id}`">
+            <v-card height="100%" width="100%" color="transparent" flat>
               <v-list-item-content>
                 <v-list-item-title>{{ incident.title }}</v-list-item-title>
                 <v-list-item-subtitle>
                   <Timeago :datetime="incident.created_at" />
                 </v-list-item-subtitle>
               </v-list-item-content>
-            </v-list-item>
-            <v-card-text>{{ incident.content }}</v-card-text>
-          </v-card>
+              <v-list-item-content>{{ incident.content }}</v-list-item-content>
+            </v-card>
+          </v-list-item>
         </div>
-        <div v-if="officer.incidents.length < 1">
+        <div v-if="officer.incidents.data.length < 1">
           <v-divider />
           <v-list-item>
             <v-list-item-content class="grey--text text--lighten-1">
               No incidents found for this officer.
             </v-list-item-content>
           </v-list-item>
+        </div>
+        <div v-else>
+          <v-divider />
+          <v-card-text>
+            <v-pagination
+              v-model="page"
+              :length="officer.incidents.pages"
+              @input="movePage"
+            />
+          </v-card-text>
         </div>
       </v-card>
     </v-col>
@@ -49,19 +59,41 @@
 
 <script>
 export default {
-  async asyncData({ $axios, params }) {
+  async asyncData({ $axios, params, query }) {
+    const page = parseInt(query.page || 1)
+    const res = await $axios.$get(
+      `/api/officers/${params.id}/incidents?page=${page}`
+    )
     return {
       officer: {
         ...(await $axios.$get(`/api/officers/${params.id}`)).data,
-        incidents: (await $axios.$get(`/api/officers/${params.id}/incidents`))
-          .data.incidents,
+        incidents: {
+          data: res.data,
+          pages: res.pages,
+        },
       },
+      page,
     }
   },
   data() {
     return {
       officer: {},
+      page: 1,
     }
+  },
+  methods: {
+    async movePage() {
+      const res = await this.$axios.$get(
+        `/api/officers/${this.$route.params.id}/incidents?page=${this.page}`
+      )
+
+      this.incidents = res.data
+      this.pages = res.pages
+
+      await this.$router.push({
+        query: { page: this.page.toString() },
+      })
+    },
   },
 }
 </script>

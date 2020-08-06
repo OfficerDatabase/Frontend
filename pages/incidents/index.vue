@@ -44,7 +44,7 @@
       </v-card>
     </v-col>
     <v-col cols="12">
-      <v-pagination v-model="page" :length="15" :total-visible="8" />
+      <v-pagination v-model="page" :length="pages" @input="movePage" />
     </v-col>
     <v-tour name="myTour" :steps="tour" :callbacks="tourCallbacks" />
   </v-row>
@@ -52,15 +52,20 @@
 
 <script>
 export default {
-  async asyncData({ $axios }) {
+  async asyncData({ $axios, query }) {
+    const page = parseInt(query.page || 1)
+    const res = await $axios.$get(`/api/incidents?page=${page}`)
     return {
-      incidents: (await $axios.$get('/api/incidents')).data,
+      incidents: res.data,
+      pages: res.pages,
+      page,
     }
   },
   data() {
     return {
       incidents: [],
       page: 1,
+      pages: 1,
       tourCallbacks: {
         onFinish: this.gotTop,
         onSkip: this.gotTop,
@@ -126,6 +131,16 @@ export default {
     },
     gotTop() {
       this.$vuetify.goTo(0)
+    },
+    async movePage() {
+      const res = await this.$axios.$get(`/api/incidents?page=${this.page}`)
+
+      this.incidents = res.data
+      this.pages = res.pages
+
+      await this.$router.push({
+        query: { page: this.page.toString() },
+      })
     },
   },
 }

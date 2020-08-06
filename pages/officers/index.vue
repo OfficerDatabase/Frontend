@@ -36,7 +36,7 @@
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
             height="200px"
           >
-            <v-card-title>{{ officer.name }}</v-card-title>
+            <v-card-title>{{ officer.fullname }}</v-card-title>
           </v-img>
           <v-card-text>
             <div v-if="officer.incidents.length > 0">
@@ -49,7 +49,7 @@
       </v-col>
 
       <v-col cols="12">
-        <v-pagination v-model="page" :length="15" :total-visible="8" />
+        <v-pagination v-model="page" :length="pages" @input="movePage" />
       </v-col>
     </v-row>
     <v-row v-else>
@@ -61,15 +61,20 @@
 
 <script>
 export default {
-  async asyncData({ $axios }) {
+  async asyncData({ $axios, query }) {
+    const page = parseInt(query.page || 1)
+    const res = await $axios.$get(`/api/officers?page=${page}`)
     return {
-      officers: (await $axios.$get('/api/officers')).data,
+      officers: res.data,
+      pages: res.pages,
+      page,
     }
   },
   data() {
     return {
       officers: [],
       page: 1,
+      pages: 1,
       tourCallbacks: {
         onFinish: this.gotTop,
         onSkip: this.gotTop,
@@ -119,6 +124,16 @@ export default {
   methods: {
     gotTop() {
       this.$vuetify.goTo(0)
+    },
+    async movePage() {
+      const res = await this.$axios.$get(`/api/officers?page=${this.page}`)
+
+      this.officers = res.data
+      this.pages = res.pages
+
+      await this.$router.push({
+        query: { page: this.page.toString() },
+      })
     },
   },
 }
