@@ -4,8 +4,10 @@
       <v-card-text>
         <v-row class="text-center">
           <v-col cols="12" xs="12" sm="4">
-            <h1>Officer Database</h1>
-            <span>Where bad conduct gets reported</span>
+            <nuxt-link class="text-decoration-none text-secondary--text" to="/">
+              <h1>Officer Database</h1>
+              <span>Where bad conduct gets reported</span>
+            </nuxt-link>
           </v-col>
           <v-col cols="12" xs="12" sm="4">
             <v-btn
@@ -25,10 +27,19 @@
           </v-col>
           <v-col cols="12" xs="12" sm="4" class="links">
             <div>
-              <nuxt-link to="/toc">
+              <nuxt-link
+                class="text-decoration-none text-secondary--text"
+                to="/toc"
+              >
                 Terms & Condition
               </nuxt-link>
-              <a href="status.officerdb.com">Status</a>
+              <a
+                class="text-decoration-none text-secondary--text"
+                href="https://status.officerdb.com"
+                target="_blank"
+              >
+                Status
+              </a>
             </div>
           </v-col>
         </v-row>
@@ -47,6 +58,19 @@ export default {
 .links {
   * {
     display: block;
+  }
+}
+
+.v-footer {
+  a {
+    transition: opacity 200ms ease-in-out;
+    opacity: 65%;
+  }
+
+  &:hover {
+    a {
+      opacity: 100%;
+    }
   }
 }
 </style>

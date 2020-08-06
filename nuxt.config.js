@@ -100,6 +100,7 @@ export default {
           'bg-primary': '#000d17',
           'bg-secondary': '#000a11',
           'bg-accent': '#00080e',
+          'text-secondary': '#e6fdfe',
         },
         light: {
           primary: '#4299E1',
@@ -112,6 +113,7 @@ export default {
           'bg-primary': '#ffffff',
           'bg-secondary': '#ffeeee',
           'bg-accent': '#fff1f1',
+          'text-secondary': '#212424',
         },
       },
     },
