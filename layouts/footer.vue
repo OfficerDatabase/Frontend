@@ -27,14 +27,11 @@
           </v-col>
           <v-col cols="12" xs="12" sm="4" class="links">
             <div>
-              <nuxt-link
-                class="text-decoration-none text-secondary--text"
-                to="/toc"
-              >
+              <nuxt-link class="text-decoration-none white--text" to="/terms">
                 Terms & Condition
               </nuxt-link>
               <a
-                class="text-decoration-none text-secondary--text"
+                class="text-decoration-none white--text"
                 href="https://status.officerdb.com"
                 target="_blank"
               >

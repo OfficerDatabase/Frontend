@@ -4,7 +4,9 @@
     <v-main class="bg-primary">
       <v-container>
         <v-breadcrumbs :items="path" />
-        <nuxt />
+        <vue-page-transition name="fade-in-up">
+          <nuxt />
+        </vue-page-transition>
       </v-container>
     </v-main>
     <Footer />

@@ -42,6 +42,7 @@ export default {
     '@/plugins/vue-tour.js',
     '@/plugins/axios.client.js',
     '@/plugins/toasted.client.js',
+    '@/plugins/vue-transitions.client.js',
   ],
   /*
    ** Auto import components
