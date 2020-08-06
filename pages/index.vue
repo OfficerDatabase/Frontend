@@ -79,18 +79,16 @@
         xl="4"
         class="text-center"
       >
-        <v-card
-          height="100%"
-          class="py-10"
-          color="transparent"
-          :to="stat.href"
-          flat
-        >
-          <h2 class="capitalize">{{ stat.name }}</h2>
-          <h1>
-            <Timeago v-if="stat.time" :datetime="stat.value" />
-            <span v-else>{{ stat.value }}</span>
-          </h1>
+        <v-card height="100%" color="transparent" flat>
+          <v-list-item class="py-10" :to="stat.href">
+            <v-list-item-content>
+              <h2 class="capitalize">{{ stat.name }}</h2>
+              <h1>
+                <Timeago v-if="stat.time" :datetime="stat.value" />
+                <span v-else>{{ stat.value }}</span>
+              </h1>
+            </v-list-item-content>
+          </v-list-item>
         </v-card>
       </v-col>
     </v-row>

@@ -21,26 +21,25 @@
       lg="4"
       xl="4"
     >
-      <v-card
-        height="100%"
-        color="bg-accent"
-        :to="`/incidents/${incident._id}`"
-        outlined
-      >
-        <v-card-title
-          :title="incident.title"
-          class="d-flex justify-space-between"
-        >
-          <span>{{ trimTitle(incident.title) || 'Untitled' }}</span>
-          <span>#{{ incident._id }}</span>
-        </v-card-title>
-        <v-card-subtitle>
-          <Timeago :datetime="incident.created_at" />
-        </v-card-subtitle>
-        <v-divider />
-        <v-card-text>
-          {{ trimContent(incident.content) || 'No content' }}
-        </v-card-text>
+      <v-card height="100%" color="bg-accent" outlined>
+        <v-list-item :to="`/incidents/${incident._id}`" class="pa-0 ma-0">
+          <v-list-item-content class="pa-0 ma-0">
+            <v-card-title
+              :title="incident.title"
+              class="d-flex justify-space-between"
+            >
+              <span>{{ trimTitle(incident.title) || 'Untitled' }}</span>
+              <span>#{{ incident._id }}</span>
+            </v-card-title>
+            <v-card-subtitle>
+              <Timeago :datetime="incident.created_at" />
+            </v-card-subtitle>
+            <v-divider />
+            <v-card-text>
+              {{ trimContent(incident.content) || 'No content' }}
+            </v-card-text>
+          </v-list-item-content>
+        </v-list-item>
       </v-card>
     </v-col>
     <v-col cols="12">

@@ -24,27 +24,26 @@
         lg="3"
         xl="2"
       >
-        <v-card
-          :to="`/officers/${officer._id}`"
-          color="bg-secondary"
-          height="100%"
-          outlined
-        >
-          <v-img
-            class="white--text align-end"
-            :src="officer.picture"
-            gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-            height="200px"
-          >
-            <v-card-title>{{ officer.fullname }}</v-card-title>
-          </v-img>
-          <v-card-text>
-            <div v-if="officer.incidents.length > 0">
-              <div>Incidents {{ officer.incidents.length }}</div>
-              <div>Last Report {{ officer.latest_incident }}</div>
-            </div>
-            <div v-else>No Incidents</div>
-          </v-card-text>
+        <v-card color="bg-secondary" height="100%" outlined>
+          <v-list-item :to="`/officers/${officer._id}`" class="pa-0 ma-0">
+            <v-list-item-content class="pa-0 ma-0">
+              <v-img
+                class="white--text align-end"
+                :src="officer.picture"
+                gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                height="200px"
+              >
+                <v-card-title>{{ officer.fullname }}</v-card-title>
+              </v-img>
+              <v-card-text>
+                <div v-if="officer.incidents.length > 0">
+                  <div>Incidents {{ officer.incidents.length }}</div>
+                  <div>Last Report {{ officer.latest_incident }}</div>
+                </div>
+                <div v-else>No Incidents</div>
+              </v-card-text>
+            </v-list-item-content>
+          </v-list-item>
         </v-card>
       </v-col>
 
