@@ -46,6 +46,14 @@
         xl="2"
       >
         <v-card color="bg-secondary" height="100%" outlined>
+          <v-badge
+            v-if="
+              Date.now() < new Date(officer.created_at).getTime() + 259200000
+            "
+            color="secondary"
+            content="NEW"
+            inline
+          />
           <v-list-item :to="`/officers/${officer._id}`" class="pa-0 ma-0">
             <v-list-item-content class="pa-0 ma-0">
               <v-img
@@ -60,7 +68,9 @@
                 <div v-if="officer.incidents.length > 0">
                   <div>Incidents {{ officer.incidents.length }}</div>
                   <div>Last Report {{ officer.latest_incident }}</div>
-                  <v-btn class="mt-5" text outlined block>Report</v-btn>
+                  <v-btn class="mt-5" text outlined block @click.prevent="">
+                    Report
+                  </v-btn>
                 </div>
                 <div v-else>No Incidents</div>
               </v-card-text>
@@ -186,3 +196,15 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.v-card {
+  position: relative;
+  .v-badge {
+    position: absolute;
+    top: -10px;
+    right: -20px;
+    z-index: 1;
+  }
+}
+</style>
