@@ -1,16 +1,37 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="12">
-        <v-btn
-          id="addOfficer"
-          class="bg-secondary"
-          to="/officers/create"
-          text
+      <v-col cols="12" class="d-flex align-center">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              id="addOfficer"
+              v-bind="attrs"
+              class="bg-secondary mr-5"
+              to="/officers/create"
+              icon
+              outlined
+              fab
+              v-on="on"
+            >
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
+          </template>
+          <span>Add Officer</span>
+        </v-tooltip>
+
+        <v-autocomplete
+          v-model="search.officer"
+          :items="officersToComplete"
+          :search-input.sync="searchOfficer"
+          label="Search Officer"
+          background-color="bg-accent"
+          hide-details
           outlined
-        >
-          Add Officer
-        </v-btn>
+          return-object
+          auto-select-first
+          dense
+        />
       </v-col>
     </v-row>
     <v-row v-if="officers.length > 0">
@@ -72,9 +93,15 @@ export default {
   },
   data() {
     return {
+      searchOfficer: null,
+      search: {
+        officer: '',
+        officerList: [],
+      },
       officers: [],
       page: 1,
       pages: 1,
+      loading: false,
       tourCallbacks: {
         onFinish: this.gotTop,
         onSkip: this.gotTop,
@@ -117,6 +144,27 @@ export default {
         },
       ],
     }
+  },
+  computed: {
+    officersToComplete() {
+      return this.search.officerList.map(
+        (officer) => `${officer.fullname} - ${officer.badge}`
+      )
+    },
+  },
+  watch: {
+    searchOfficer() {
+      if (this.officersToComplete.length > 0 || this.loading) return
+
+      this.loading = true
+
+      this.$axios
+        .$get('/api/officers/list')
+        .then(({ data }) => {
+          this.search.officerList = data
+        })
+        .finally(() => (this.loading = false))
+    },
   },
   mounted() {
     this.$tours.myTour.start()

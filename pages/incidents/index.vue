@@ -1,15 +1,31 @@
 <template>
   <v-row>
-    <v-col cols="12">
-      <v-btn
-        id="addIncident"
-        class="bg-secondary"
-        to="/incidents/create"
-        text
+    <v-col cols="12" class="d-flex align-center">
+      <v-tooltip top>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            id="addIncident"
+            v-bind="attrs"
+            class="bg-secondary mr-5"
+            to="/incidents/create"
+            icon
+            outlined
+            fab
+            v-on="on"
+          >
+            <v-icon>mdi-plus</v-icon>
+          </v-btn>
+        </template>
+        <span>New Report</span>
+      </v-tooltip>
+      <v-text-field
+        v-model="incidentToSearch"
+        label="Search incident"
+        background-color="bg-accent"
+        hide-details
         outlined
-      >
-        Make a Report
-      </v-btn>
+        dense
+      />
     </v-col>
     <v-col
       v-for="(incident, i) in incidents"
@@ -62,6 +78,7 @@ export default {
   },
   data() {
     return {
+      incidentToSearch: '',
       incidents: [],
       page: 1,
       pages: 1,
