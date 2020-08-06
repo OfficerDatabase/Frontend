@@ -11,7 +11,7 @@
           <v-card-title>{{ officer.name }}</v-card-title>
         </v-img>
         <v-card-text>
-          <div>Incidents: {{ officer.incidents.data.length }}</div>
+          <div>Incidents: {{ incidentCount }}</div>
           <div>Badge: {{ officer.badge }}</div>
           <div>Location: {{ officer.location }}</div>
         </v-card-text>
