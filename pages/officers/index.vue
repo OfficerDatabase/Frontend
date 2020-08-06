@@ -45,7 +45,12 @@
         lg="3"
         xl="2"
       >
-        <v-card color="bg-secondary" height="100%" outlined>
+        <v-card
+          class="officer-card"
+          color="bg-secondary"
+          height="100%"
+          outlined
+        >
           <v-badge
             v-if="
               Date.now() < new Date(officer.created_at).getTime() + 259200000
@@ -198,7 +203,7 @@ export default {
 </script>
 
 <style lang="scss">
-.v-card {
+.officer-card {
   position: relative;
   .v-badge {
     position: absolute;
