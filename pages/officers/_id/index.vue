@@ -87,7 +87,7 @@ export default {
         `/api/officers/${this.$route.params.id}/incidents?page=${this.page}`
       )
 
-      this.incidents = res.data
+      this.officer.incidents.data = res.data
       this.pages = res.pages
 
       await this.$router.push({
