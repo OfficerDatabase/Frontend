@@ -26,11 +26,15 @@
           :search-input.sync="searchOfficer"
           label="Search Officer"
           background-color="bg-accent"
+          item-text="displayName"
+          item-value="_id"
           hide-details
+          hide-no-data
           outlined
           return-object
           auto-select-first
           dense
+          @input="goToOfficer"
         />
       </v-col>
     </v-row>
@@ -110,7 +114,7 @@ export default {
     return {
       searchOfficer: null,
       search: {
-        officer: '',
+        officer: null,
         officerList: [],
       },
       officers: [],
@@ -162,9 +166,10 @@ export default {
   },
   computed: {
     officersToComplete() {
-      return this.search.officerList.map(
-        (officer) => `${officer.fullname} - ${officer.badge}`
-      )
+      return this.search.officerList.map((officer) => ({
+        displayName: `${officer.fullname} - ${officer.badge}`,
+        _id: officer._id,
+      }))
     },
   },
   watch: {
@@ -197,6 +202,10 @@ export default {
       await this.$router.push({
         query: { page: this.page.toString() },
       })
+    },
+    goToOfficer() {
+      if (!this.search.officer) return
+      this.$router.push({ path: `/officers/${this.search.officer._id}` })
     },
   },
 }
