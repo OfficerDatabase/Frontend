@@ -47,6 +47,6 @@ export default {
   background: var(--v-bg-secondary-base) !important;
 }
 .v-pagination .v-pagination__item--active {
-  background: var(--v-secondary-base) !important;
+  background: var(--v-primary-base) !important;
 }
 </style>
