@@ -25,6 +25,7 @@
         hide-details
         outlined
         dense
+        @change="updatePage"
       />
     </v-col>
     <v-col
@@ -59,7 +60,7 @@
       </v-card>
     </v-col>
     <v-col cols="12">
-      <v-pagination v-model="page" :length="pages" @input="movePage" />
+      <v-pagination v-model="page" :length="pages" @input="updatePage" />
     </v-col>
     <v-tour name="myTour" :steps="tour" :callbacks="tourCallbacks" />
   </v-row>
@@ -69,7 +70,11 @@
 export default {
   async asyncData({ $axios, query }) {
     const page = parseInt(query.page || 1)
-    const res = await $axios.$get(`/api/incidents?page=${page}`)
+    const search = query.search || ''
+
+    const res = await $axios.$get(
+      `/api/incidents?search=${search}&page=${page}`
+    )
     return {
       incidents: res.data,
       pages: res.pages,
@@ -78,6 +83,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       incidentToSearch: '',
       incidents: [],
       page: 1,
@@ -148,15 +154,26 @@ export default {
     gotTop() {
       this.$vuetify.goTo(0)
     },
-    async movePage() {
-      const res = await this.$axios.$get(`/api/incidents?page=${this.page}`)
+    async updatePage() {
+      if (this.loading) return
+
+      this.loading = true
+
+      const res = await this.$axios.$get(
+        `/api/incidents?search=${this.incidentToSearch}&page=${this.page}`
+      )
 
       this.incidents = res.data
       this.pages = res.pages
 
       await this.$router.push({
-        query: { page: this.page.toString() },
+        query: {
+          page: this.page.toString(),
+          search: this.incidentToSearch,
+        },
       })
+
+      this.loading = false
     },
   },
 }
