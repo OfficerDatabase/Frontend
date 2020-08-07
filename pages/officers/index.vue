@@ -187,7 +187,7 @@ export default {
     },
   },
   mounted() {
-    this.$tours.myTour.start()
+    // this.$tours.myTour.start()
   },
   methods: {
     gotTop() {
