@@ -14,7 +14,9 @@
           <div>Incidents: {{ incidentCount }}</div>
           <div>Badge: {{ officer.badge }}</div>
           <div>Location: {{ officer.location }}</div>
-          <v-btn class="mt-5" text outlined block>Report</v-btn>
+          <v-btn class="mt-5" text outlined block @click="reportOfficer">
+            Report
+          </v-btn>
         </v-card-text>
       </v-card>
     </v-col>
@@ -103,6 +105,16 @@ export default {
 
       await this.$router.push({
         query: { page: this.page.toString() },
+      })
+    },
+    async reportOfficer() {
+      await this.$router.push({
+        path: '/incidents/create',
+        query: {
+          officer: this.officer.fullname,
+          badge: this.officer.badge,
+          _id: this.officer._id,
+        },
       })
     },
   },

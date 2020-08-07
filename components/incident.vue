@@ -98,9 +98,12 @@
           v-model="incidentData.officer"
           :items="officers"
           :search-input.sync="searchOfficer"
+          item-text="displayName"
+          item-value="_id"
           label="Officer"
           background-color="bg-accent"
           hide-details
+          hide-no-data
           outlined
           return-object
           auto-select-first
@@ -159,7 +162,7 @@ export default {
       loading: false,
       searchOfficer: null,
       incident: {
-        officer: '',
+        officer: this.queryOfficer()[0],
         content: '',
         title: '',
         created_by: {
@@ -198,21 +201,30 @@ export default {
   computed: {
     incidentData() {
       const data = this.submitable ? this.incident : this.data
-      if (typeof data.officer !== 'string') {
-        data.officer = `${data.officer.fullname} - ${data.officer.badge}`
+
+      if (data.officer) {
+        data.officer = {
+          displayName: `${data.officer.fullname} - ${data.officer.badge}`,
+          _id: data.officer._id,
+        }
       }
+
       return data
     },
     officers() {
       if (!this.submitable) {
         return [this.incidentData.officer]
       }
-      return this.officerList.map(
-        (officer) => `${officer.fullname} - ${officer.badge}`
-      )
+      return (this.officerList.length < 1
+        ? this.queryOfficer()
+        : this.officerList
+      ).map((officer) => ({
+        displayName: `${officer.fullname} - ${officer.badge}`,
+        _id: officer._id,
+      }))
     },
     selectedOfficer() {
-      return this.officers.indexOf(this.incidentData.officer)
+      return this.incidentData.officer._id
     },
   },
   watch: {
@@ -240,6 +252,24 @@ export default {
         await this.$router.push({ path: `/incidents/${_id}` })
         this.$toasted.success('Report created!')
       } catch {}
+    },
+    queryOfficer() {
+      if (
+        Object.keys(this.$route.query).every(
+          (entry) => !['badge', 'officer', '_id'].includes(entry)
+        )
+      ) {
+        return []
+      }
+
+      const { officer, badge, _id } = this.$route.query
+      return [
+        {
+          fullname: officer,
+          badge,
+          _id,
+        },
+      ]
     },
   },
 }

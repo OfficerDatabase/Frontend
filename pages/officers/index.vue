@@ -77,11 +77,17 @@
                 <div v-if="officer.incidents.length > 0">
                   <div>Incidents {{ officer.incidents.length }}</div>
                   <div>Last Report {{ officer.latest_incident }}</div>
-                  <v-btn class="mt-5" text outlined block @click.prevent="">
-                    Report
-                  </v-btn>
                 </div>
                 <div v-else>No Incidents</div>
+                <v-btn
+                  class="mt-5"
+                  text
+                  outlined
+                  block
+                  @click.prevent="reportOfficer(i)"
+                >
+                  Report
+                </v-btn>
               </v-card-text>
             </v-list-item-content>
           </v-list-item>
@@ -206,6 +212,17 @@ export default {
     goToOfficer() {
       if (!this.search.officer) return
       this.$router.push({ path: `/officers/${this.search.officer._id}` })
+    },
+    async reportOfficer(index) {
+      const officer = this.officers[index]
+      await this.$router.push({
+        path: '/incidents/create',
+        query: {
+          officer: officer.fullname,
+          badge: officer.badge,
+          _id: officer._id,
+        },
+      })
     },
   },
 }
