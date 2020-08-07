@@ -24,6 +24,13 @@
             >
               <v-icon>mdi-instagram</v-icon>
             </v-btn>
+            <v-btn
+              href="https://github.com/OfficerDatabase"
+              target="_blank"
+              icon
+            >
+              <v-icon>mdi-github</v-icon>
+            </v-btn>
           </v-col>
           <v-col cols="12" xs="12" sm="4" class="links">
             <div>
