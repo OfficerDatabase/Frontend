@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col cols="12" xs="12" sm="4" md="4" lg="4" xl="4">
+    <v-col cols="12" xs="12" sm="5" md="4" lg="3" xl="3">
       <v-card color="bg-secondary" flat>
         <v-img
           class="white--text align-end"
@@ -20,7 +20,17 @@
         </v-card-text>
       </v-card>
     </v-col>
-    <v-col cols="12" xd="12" sm="8" md="8" lg="8" xl="8">
+    <v-col
+      cols="12"
+      xd="12"
+      sm="7"
+      md="7"
+      lg="7"
+      xl="7"
+      offset-md="1"
+      offset-lg="1"
+      offset-xl="1"
+    >
       <v-card color="bg-accent">
         <v-subheader class="d-flex justify-space-between">
           <span>Incidents</span>
