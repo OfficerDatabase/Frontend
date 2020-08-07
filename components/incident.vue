@@ -21,6 +21,7 @@
           :items="items.age"
           label="Age"
           background-color="bg-accent"
+          hide-details
           cache-items
           outlined
           :disabled="!submitable"
@@ -32,6 +33,7 @@
           :items="items.sex"
           label="Sex"
           background-color="bg-accent"
+          hide-details
           cache-items
           outlined
           :disabled="!submitable"
@@ -43,6 +45,7 @@
           :items="items.ethnicity"
           label="Ethnicity"
           background-color="bg-accent"
+          hide-details
           cache-items
           outlined
           :disabled="!submitable"
@@ -54,6 +57,7 @@
           :items="items.weight"
           label="Weight"
           background-color="bg-accent"
+          hide-details
           cache-items
           outlined
           :disabled="!submitable"
@@ -65,6 +69,7 @@
           :items="items.height"
           label="Height"
           background-color="bg-accent"
+          hide-details
           cache-items
           outlined
           :disabled="!submitable"
@@ -78,6 +83,7 @@
           v-model="incidentData.location.state"
           label="State"
           background-color="bg-accent"
+          hide-details
           cache-items
           outlined
           :disabled="!submitable"
@@ -88,6 +94,7 @@
           v-model="incidentData.location.city"
           label="City"
           background-color="bg-accent"
+          hide-details
           cache-items
           outlined
           :disabled="!submitable"
