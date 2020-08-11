@@ -67,13 +67,13 @@ export default {
 
 .v-footer {
   a {
-    transition: opacity 200ms ease-in-out;
-    opacity: 65%;
+    transition: opacity 200ms ease-in-out !important;
+    opacity: 65% !important;
   }
 
   &:hover {
     a {
-      opacity: 100%;
+      opacity: 100% !important;
     }
   }
 }
