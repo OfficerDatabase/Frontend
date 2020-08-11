@@ -32,7 +32,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['@/assets/theme-fix.scss'],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins

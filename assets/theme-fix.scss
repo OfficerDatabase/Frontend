@@ -1,0 +1,18 @@
+.v-pagination li button {
+  background: var(--v-bg-secondary-base) !important;
+}
+.v-pagination .v-pagination__item--active {
+  background: var(--v-primary-base) !important;
+}
+
+.v-picker .v-picker__body {
+  background: var(--v-bg-accent-base) !important;
+}
+
+.v-picker .v-picker__actions {
+  background: var(--v-bg-primary-base) !important;
+}
+
+.v-menu__content .v-list {
+  background: var(--v-bg-accent-base) !important;
+}

@@ -41,12 +41,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss">
-.v-pagination li button {
-  background: var(--v-bg-secondary-base) !important;
-}
-.v-pagination .v-pagination__item--active {
-  background: var(--v-primary-base) !important;
-}
-</style>

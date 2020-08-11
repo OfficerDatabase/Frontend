@@ -100,7 +100,7 @@
           :disabled="!submitable"
         />
       </v-col>
-      <v-col cols="12">
+      <v-col cols="6">
         <v-autocomplete
           v-model="incidentData.officer"
           :items="officers"
@@ -116,6 +116,46 @@
           auto-select-first
           :disabled="!submitable"
         />
+      </v-col>
+      <v-col cols="6">
+        <v-menu
+          ref="dateMenu"
+          v-model="dateMenu"
+          :close-on-content-click="false"
+          :return-value.sync="incidentData.date"
+          transition="scale-transition"
+          offset-y
+          min-width="290px"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              v-model="incidentData.date"
+              label="Date"
+              background-color="bg-accent"
+              v-bind="attrs"
+              outlined
+              :disabled="!submitable"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            v-model="incidentData.date"
+            color="bg-primary"
+            no-title
+            scrollable
+            @input="$refs.dateMenu.save(incidentData.date)"
+          >
+            <v-spacer></v-spacer>
+            <v-btn text color="primary" @click="dateMenu = false">Cancel</v-btn>
+            <v-btn
+              text
+              color="primary"
+              @click="$refs.dateMenu.save(incidentData.date)"
+            >
+              OK
+            </v-btn>
+          </v-date-picker>
+        </v-menu>
       </v-col>
       <v-col cols="12">
         <v-text-field
@@ -165,6 +205,7 @@ export default {
   },
   data() {
     return {
+      dateMenu: null,
       officerList: [],
       loading: false,
       searchOfficer: null,
@@ -172,6 +213,7 @@ export default {
         officer: this.queryOfficer()[0],
         content: '',
         title: '',
+        date: new Date().toISOString().substr(0, 10),
         created_by: {
           name: '',
           age: '',
