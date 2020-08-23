@@ -9,6 +9,7 @@
           v-model="officer.fullname"
           label="Name"
           background-color="bg-accent"
+          hide-details
           outlined
         />
       </v-col>
@@ -17,6 +18,29 @@
           v-model="officer.badge"
           label="Badge"
           background-color="bg-accent"
+          hide-details
+          outlined
+        />
+      </v-col>
+      <v-col cols="6">
+        <v-select
+          v-model="officer.location.state"
+          :items="items.location.state"
+          label="State"
+          background-color="bg-accent"
+          hide-details
+          cache-items
+          outlined
+        />
+      </v-col>
+      <v-col cols="6">
+        <v-select
+          v-model="officer.location.city"
+          :items="items.location.city"
+          label="City"
+          background-color="bg-accent"
+          hide-details
+          cache-items
           outlined
         />
       </v-col>
@@ -29,26 +53,6 @@
           counter
           outlined
           show-size
-        />
-      </v-col>
-      <v-col cols="6">
-        <v-select
-          v-model="officer.location.state"
-          :items="items.location.state"
-          label="State"
-          background-color="bg-accent"
-          cache-items
-          outlined
-        />
-      </v-col>
-      <v-col cols="6">
-        <v-select
-          v-model="officer.location.city"
-          :items="items.location.city"
-          label="City"
-          background-color="bg-accent"
-          cache-items
-          outlined
         />
       </v-col>
       <v-col>

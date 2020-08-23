@@ -13,6 +13,14 @@
   background: var(--v-bg-primary-base) !important;
 }
 
+.v-picker .v-date-picker-table .v-date-picker-table__current {
+  color: white !important;
+}
+
 .v-menu__content .v-list {
   background: var(--v-bg-accent-base) !important;
+}
+
+.toasted-container {
+  font-family: Roboto, sans-serif !important;
 }
