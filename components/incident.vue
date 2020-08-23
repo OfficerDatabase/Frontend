@@ -129,7 +129,7 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
-              v-model="incidentData.date"
+              v-model="formatDate"
               label="Date"
               background-color="bg-accent"
               v-bind="attrs"
@@ -274,6 +274,12 @@ export default {
     },
     selectedOfficer() {
       return this.incidentData.officer._id
+    },
+    formatDate() {
+      if (!this.incidentData.date) {
+        return undefined
+      }
+      return this.incidentData.date.substr(0, 10)
     },
   },
   watch: {
