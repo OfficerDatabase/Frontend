@@ -43,11 +43,11 @@
                 <span class="accent--text">
                   {{ incident.created_by.name }}
                 </span>
-                <span class="grey--text text--lighten-1"> reported </span>
+                <span class="grey--text text--darken-1"> reported </span>
                 <span class="blue--text">{{ incident.officer.fullname }} </span>
                 <Timeago
                   :datetime="incident.created_at"
-                  class="grey--text text--lighten-1"
+                  class="grey--text text--darken-1"
                 />
               </v-list-item-content>
             </v-list-item>
