@@ -88,7 +88,8 @@ export default {
       options: {
         customProperties: true,
       },
-      dark: true,
+      dark: false,
+      light: true,
       themes: {
         dark: {
           primary: '#4299E1',
@@ -112,8 +113,8 @@ export default {
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
           'bg-primary': '#ffffff',
-          'bg-secondary': '#ffeeee',
-          'bg-accent': '#fff1f1',
+          'bg-secondary': '#ececec',
+          'bg-accent': '#eeeeee',
           'text-secondary': '#212424',
         },
       },
