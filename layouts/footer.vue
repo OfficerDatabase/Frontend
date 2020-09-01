@@ -33,12 +33,12 @@
             </v-btn>
           </v-col>
           <v-col cols="12" xs="12" sm="4" class="links">
-            <div>
-              <nuxt-link class="text-decoration-none white--text" to="/terms">
+            <div class="footer-links">
+              <nuxt-link class="text-decoration-none" to="/terms">
                 Terms & Condition
               </nuxt-link>
               <a
-                class="text-decoration-none white--text"
+                class="text-decoration-none"
                 href="https://status.officerdb.com"
                 target="_blank"
               >
@@ -74,6 +74,16 @@ export default {
   &:hover {
     a {
       opacity: 100% !important;
+    }
+  }
+
+  .footer-links {
+    a {
+      color: var(--v-text-secondary-base) !important;
+
+      &:hover {
+        text-decoration: underline !important;
+      }
     }
   }
 }
