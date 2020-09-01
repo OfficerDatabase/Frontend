@@ -40,7 +40,7 @@
               :to="`/incidents/${incident._id}`"
             >
               <v-list-item-content class="d-inline">
-                <span class="yellow--text">
+                <span class="accent--text">
                   {{ incident.created_by.name }}
                 </span>
                 <span class="grey--text text--lighten-1"> reported </span>
