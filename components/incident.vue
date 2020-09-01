@@ -81,22 +81,31 @@
       <v-col cols="6">
         <v-select
           v-model="incidentData.location.state"
+          :items="items.location.state"
           label="State"
           background-color="bg-accent"
+          item-text="name"
+          item-value="index"
           hide-details
           cache-items
           outlined
+          return-object
           :disabled="!submitable"
+          @input="changeCity"
         />
       </v-col>
       <v-col cols="6">
         <v-select
           v-model="incidentData.location.city"
+          :items="items.location.city"
           label="City"
           background-color="bg-accent"
+          item-text="name"
+          item-value="index"
           hide-details
           cache-items
           outlined
+          return-object
           :disabled="!submitable"
         />
       </v-col>
@@ -189,6 +198,8 @@
 </template>
 
 <script>
+import * as location from '@/assets/state-city.json'
+
 export default {
   name: 'Incident',
   props: {
@@ -223,8 +234,8 @@ export default {
           weight: '',
         },
         location: {
-          state: '',
-          city: '',
+          state: 0,
+          city: 0,
         },
       },
       items: {
@@ -241,7 +252,10 @@ export default {
         height: ['< 5.0', '5.1-5.11', '6.0 >'],
         weight: ['< 120', '121-150', '151-199', '200+'],
         location: {
-          state: [],
+          state: Object.keys(location.default).map((value, index) => ({
+            name: value,
+            index,
+          })),
           city: [],
         },
       },
@@ -325,6 +339,14 @@ export default {
           _id,
         },
       ]
+    },
+    changeCity() {
+      const { name } = this.incidentData.location.state
+      this.items.location.city = location.default[name].map((value, index) => ({
+        name: value,
+        index,
+      }))
+      console.log(this.items.location.city)
     },
   },
 }
