@@ -85,7 +85,7 @@
           label="State"
           background-color="bg-accent"
           item-text="name"
-          item-value="index"
+          item-value="value"
           hide-details
           cache-items
           outlined
@@ -101,7 +101,7 @@
           label="City"
           background-color="bg-accent"
           item-text="name"
-          item-value="index"
+          item-value="value"
           hide-details
           cache-items
           outlined
@@ -234,8 +234,8 @@ export default {
           weight: '',
         },
         location: {
-          state: 0,
-          city: 0,
+          state: '',
+          city: '',
         },
       },
       items: {
@@ -252,11 +252,11 @@ export default {
         height: ['< 5.0', '5.1-5.11', '6.0 >'],
         weight: ['< 120', '121-150', '151-199', '200+'],
         location: {
-          state: Object.keys(location.default).map((value, index) => ({
-            name: value,
-            index,
+          state: Object.keys(location.default).map((name, value) => ({
+            name,
+            value,
           })),
-          city: [],
+          city: location.default[Object.keys(location.default)[0]],
         },
       },
     }
@@ -342,11 +342,10 @@ export default {
     },
     changeCity() {
       const { name } = this.incidentData.location.state
-      this.items.location.city = location.default[name].map((value, index) => ({
-        name: value,
-        index,
+      this.items.location.city = location.default[name].map((name, value) => ({
+        name,
+        value,
       }))
-      console.log(this.items.location.city)
     },
   },
 }
