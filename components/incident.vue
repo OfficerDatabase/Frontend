@@ -265,7 +265,7 @@ export default {
     incidentData() {
       const data = this.submitable ? this.incident : this.data
 
-      if (data.officer) {
+      if (data.officer && !data.officer.displayName) {
         data.officer = {
           displayName: `${data.officer.fullname} - ${data.officer.badge}`,
           _id: data.officer._id,
