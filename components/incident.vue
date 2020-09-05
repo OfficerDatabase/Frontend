@@ -141,6 +141,7 @@
               label="Date"
               background-color="bg-accent"
               v-bind="attrs"
+              hide-details
               outlined
               :disabled="!submitable"
               v-on="on"

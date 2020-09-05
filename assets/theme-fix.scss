@@ -14,7 +14,12 @@
 }
 
 .v-picker .v-date-picker-table .v-date-picker-table__current {
-  color: white !important;
+  color: var(--v-text-secondary) !important;
+}
+
+.v-picker .v-date-picker-table .v-btn--active {
+  background: var(--v-bg-accent-base) !important;
+  color: var(--v-text-secondary) !important;
 }
 
 .v-menu__content .v-list {
