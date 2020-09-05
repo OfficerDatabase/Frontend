@@ -34,7 +34,7 @@
           label="Sex"
           background-color="bg-accent"
           hide-details
-          cache-items
+          cache-items=""
           outlined
           :disabled="!submitable"
         />
@@ -87,7 +87,6 @@
           item-text="name"
           item-value="value"
           hide-details
-          cache-items
           outlined
           return-object
           :disabled="!submitable"
@@ -103,8 +102,8 @@
           item-text="name"
           item-value="value"
           hide-details
-          cache-items
           outlined
+          eager
           return-object
           :disabled="!submitable"
         />
@@ -234,8 +233,8 @@ export default {
           weight: '',
         },
         location: {
-          state: '',
-          city: '',
+          state: {},
+          city: {},
         },
       },
       items: {
@@ -256,7 +255,14 @@ export default {
             name,
             value,
           })),
-          city: location.default[Object.keys(location.default)[0]],
+          city: location.default[
+            !this.submitable
+              ? this.data.location.state.name
+              : Object.keys(location.default)[0]
+          ].map((name, value) => ({
+            name,
+            value,
+          })),
         },
       },
     }
@@ -346,6 +352,7 @@ export default {
         name,
         value,
       }))
+      this.incidentData.location.city = location.default[name]
     },
   },
 }
