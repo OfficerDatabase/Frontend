@@ -75,8 +75,16 @@
               </v-img>
               <v-card-text>
                 <div v-if="officer.incidents.length > 0">
-                  <div>Incidents {{ officer.incidents.length }}</div>
-                  <div>Last Report {{ officer.latest_incident }}</div>
+                  <div class="d-flex justify-space-between">
+                    Incidents
+                    <span>
+                      {{ officer.incidents.length }}
+                    </span>
+                  </div>
+                  <div class="d-flex justify-space-between">
+                    Last Report
+                    <Timeago :datetime="officer.latest_incident.created_at" />
+                  </div>
                 </div>
                 <div v-else>No Incidents</div>
                 <v-btn

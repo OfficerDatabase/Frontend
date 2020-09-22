@@ -124,6 +124,7 @@
           auto-select-first
           :disabled="!submitable"
         />
+        <a :href="`/officers/${incidentData.officer._id}`">Go to officer</a>
       </v-col>
       <v-col cols="6">
         <v-menu
@@ -257,9 +258,10 @@ export default {
             value,
           })),
           city: location.default[
-            !this.submitable
+            (this.data.location && !this.submitable
               ? this.data.location.state.name
-              : Object.keys(location.default)[0]
+              : Object.keys(location.default)[0]) ||
+              Object.keys(location.default)[0]
           ].map((name, value) => ({
             name,
             value,
@@ -276,6 +278,13 @@ export default {
         data.officer = {
           displayName: `${data.officer.fullname} - ${data.officer.badge}`,
           _id: data.officer._id,
+        }
+      }
+
+      if (!this.data.location) {
+        data.location = {
+          state: { name: '', value: 0 },
+          city: { name: '', value: 0 },
         }
       }
 

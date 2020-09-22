@@ -40,11 +40,13 @@
               :to="`/incidents/${incident._id}`"
             >
               <v-list-item-content class="d-inline">
-                <span class="accent--text">
+                <span class="secondary--text">
                   {{ incident.created_by.name }}
                 </span>
                 <span class="grey--text text--darken-1"> reported </span>
-                <span class="blue--text">{{ incident.officer.fullname }} </span>
+                <span class="primary--text">
+                  {{ incident.officer.fullname }}
+                </span>
                 <Timeago
                   :datetime="incident.created_at"
                   class="grey--text text--darken-1"
@@ -65,7 +67,7 @@
         </v-list>
       </v-col>
     </v-row>
-    <v-row class="bg-secondary mx-1 mb-10">
+    <v-row class="mx-1 mb-10">
       <v-col
         v-for="(stat, i) in stats"
         :key="i"
@@ -75,16 +77,15 @@
         md="4"
         lg="4"
         xl="4"
-        class="text-center"
       >
         <v-card height="100%" color="transparent" flat>
           <v-list-item class="py-10" :to="stat.href">
-            <v-list-item-content>
-              <h2 class="capitalize">{{ stat.name }}</h2>
-              <h1>
+            <v-list-item-content class="d-flex">
+              <h1 class="stat-title capitalize">
                 <Timeago v-if="stat.time" :datetime="stat.value" />
                 <span v-else>{{ stat.value }}</span>
               </h1>
+              <h2 class="capitalize">{{ stat.name }}</h2>
             </v-list-item-content>
           </v-list-item>
         </v-card>
@@ -119,8 +120,11 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .main-screen {
   min-height: 100vh;
+}
+.stat-title {
+  font-size: 100px;
 }
 </style>
