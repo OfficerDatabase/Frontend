@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.11.0",
-    "nuxt": "^2.13.0",
+    "nuxt": "^3.4.3",
     "vue-page-transition": "^0.2.2",
     "vue-timeago": "^5.1.2",
     "vue-toasted": "^1.1.28",
